@@ -1,0 +1,19 @@
+[package]
+name = "awattar-api"
+description = "API client for the awattar price API"
+version = "0.1.0"
+edition = "2021"
+authors = ["Markus Kasten <github@markuskasten.eu>"]
+categories = ["api-bindings"]
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+reqwest = { version = "0.11", features = ["json"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "1"
+serde = { version = "1", features = ["derive"] }
+
+[dev-dependencies]
+tokio = { version = "1.1", features = ["full"] }
