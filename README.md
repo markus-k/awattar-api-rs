@@ -2,6 +2,9 @@
 
 This crates is an API client for the [awattar](https://www.awattar.de) price API.
 
+The API of this crate is currently not considered stable and is likely to change
+in future releases.
+
 ## Usage
 
 For a full example have a look at the `examples/`-directory.
