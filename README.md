@@ -18,17 +18,17 @@ awattar-api = "0.1.0"
 Querying prices is simple:
 ``` rust
 use awattar_api::*;
+use chrono::Utc;
 
 #[tokio::main]
 async fn main() {
-    // get prices for the last two days
-    let prices = query_prices(
-        AwattarZone::Germany,
-        Some(chrono::Local::now() - chrono::Duration::days(2)),
-        Some(chrono::Local::now()),
-    ).await.unwrap();
+    let date = Utc::today().naive_local();
 
-    for slot in prices {
+    let prices = PriceData::query_date(AwattarZone::Germany, date)
+        .await
+        .unwrap();
+
+    for slot in prices.slots_iter() {
         println!(
             "{} - {}: {:.02} €/kWh",
             slot.start(),
