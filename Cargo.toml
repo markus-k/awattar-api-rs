@@ -4,6 +4,7 @@ description = "API client for the awattar price API"
 version = "0.1.0"
 edition = "2021"
 authors = ["Markus Kasten <github@markuskasten.eu>"]
+repository = "https://github.com/markus-k/awattar-api-rs"
 categories = ["api-bindings"]
 license = "MIT"
 
