@@ -184,8 +184,9 @@ impl PriceData {
         self.slots.iter()
     }
 
-    /// Finds and returns the [`PriceSlot`] for the given datetime. If no slot could be found,
-    /// `None` is returned.
+    /// Finds and returns the [`PriceSlot`] for the given datetime.
+    ///
+    /// If no slot could be found, `None` is returned.
     pub fn slot_for_datetime<TZ: TimeZone>(&self, datetime: DateTime<TZ>) -> Option<&PriceSlot> {
         self.slots
             .iter()
@@ -193,6 +194,8 @@ impl PriceData {
     }
 
     /// Returns the [`PriceSlot`] with the lowest price.
+    ///
+    /// If this instance does not contain any price slots, `None` is returned.
     pub fn min_price(&self) -> Option<&PriceSlot> {
         self.slots
             .iter()
@@ -200,6 +203,8 @@ impl PriceData {
     }
 
     /// Returns the [`PriceSlot`] with the highest price.
+    ///
+    /// If this instance does not contain any price slots, `None` is returned.
     pub fn max_price(&self) -> Option<&PriceSlot> {
         self.slots
             .iter()
@@ -233,9 +238,8 @@ pub enum AwattarError {
 
 /// Zone for awattar prices.
 ///
-/// Currently supports Austria and Germany, but could expand
-/// in the future as Germany might split their price zones or awattar expands support for
-/// further countries.
+/// Currently supports Austria and Germany, but could expand in the future as Germany might
+/// split their price zones or awattar adds support for further countries.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum AwattarZone {
     /// Prices for Austria
@@ -253,11 +257,14 @@ impl AwattarZone {
         }
     }
 
-    /// Returns the `TimeZone` of the [`AwattarZone`]
+    /// Returns the `TimeZone` of the [`AwattarZone`].
+    ///
+    /// While all currently support zones have the same TZ, it's not unheard of that a
+    /// country might eliminate DST or future zones may have different timezones.
+    ///
+    /// This especially comes in handy when you want to query times from the first to the
+    /// last hour of a day (i.e. full 24 hours).
     pub const fn timezone(&self) -> chrono_tz::Tz {
-        // while these two countries will always have the same TZ, it's not unheard of
-        // that one might elimainate DST or something, so better do it right from the
-        // beginning.
         match self {
             AwattarZone::Austria => chrono_tz::Europe::Vienna,
             AwattarZone::Germany => chrono_tz::Europe::Berlin,
