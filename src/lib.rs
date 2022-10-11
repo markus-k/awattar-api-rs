@@ -105,7 +105,7 @@ impl PriceData {
             response
                 .data
                 .into_iter()
-                .map(|item| PriceSlot::try_from(item))
+                .map(PriceSlot::try_from)
                 .collect::<Result<Vec<_>, _>>()?,
         ))
     }
@@ -150,6 +150,11 @@ impl PriceData {
     /// Returns the number of slots this instance is holding.
     pub fn len(&self) -> usize {
         self.slots.len()
+    }
+
+    /// Return `true` when this instance contains any [`PriceSlot`]s.
+    pub fn is_empty(&self) -> bool {
+        self.slots.is_empty()
     }
 
     /// Return a [`Vec`] of [`PriceSlot`]s this instance is holding.
