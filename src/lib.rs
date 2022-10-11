@@ -1,4 +1,5 @@
 #![doc = include_str!("../README.md")]
+#![warn(rust_2018_idioms)]
 
 use chrono::{DateTime, Duration, NaiveDate, TimeZone, Utc};
 use serde::Deserialize;
