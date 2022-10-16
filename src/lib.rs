@@ -58,6 +58,7 @@ impl TryFrom<AwattarDataItem> for PriceSlot {
 #[derive(Clone, Debug)]
 pub struct PriceData {
     slots: Vec<PriceSlot>,
+    zone: AwattarZone,
 }
 
 impl PriceData {
@@ -108,6 +109,7 @@ impl PriceData {
                 .into_iter()
                 .map(PriceSlot::try_from)
                 .collect::<Result<Vec<_>, _>>()?,
+            zone,
         ))
     }
 
@@ -144,8 +146,8 @@ impl PriceData {
     }
 
     /// Create a new instance from a [`Vec`] of [`PriceSlot`]s.
-    pub fn from_slots(slots: Vec<PriceSlot>) -> Self {
-        Self { slots }
+    pub fn from_slots(slots: Vec<PriceSlot>, zone: AwattarZone) -> Self {
+        Self { slots, zone }
     }
 
     /// Returns the number of slots this instance is holding.
@@ -215,6 +217,11 @@ impl PriceData {
         self.slots
             .iter()
             .max_by_key(|slot| slot.price_cents_per_mwh())
+    }
+
+    /// Returns the zone this instance belongs in.
+    pub fn zone(&self) -> AwattarZone {
+        self.zone
     }
 }
 
