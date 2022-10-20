@@ -12,7 +12,7 @@ For a full example have a look at the `examples/`-directory.
 Add `awattar-api` to you dependencies:
 ``` toml
 [dependencies]
-awattar-api = "0.1.0"
+awattar-api = "0.2.0"
 ```
 
 Querying prices is simple:
